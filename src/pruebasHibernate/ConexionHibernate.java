@@ -10,7 +10,7 @@ public class ConexionHibernate {
 
 	public static void main(String[] args) {
 		
-		String jdbcUrl="jdbc:mysql://localhost:3306/pruebasHibernate?useSSL=false";		//como estamos haciendo pruebas en local no necesitamos el protocolo seguro de comunicacion SSL.	
+		String jdbcUrl="jdbc:mysql://localhost:3306/relacionesHibernate?useSSL=false";		//como estamos haciendo pruebas en local no necesitamos el protocolo seguro de comunicacion SSL.	
 		String usuario="root";
 		String contrasena="";
 		
@@ -20,14 +20,11 @@ public class ConexionHibernate {
 			Connection objConexion=DriverManager.getConnection(jdbcUrl,usuario,contrasena); 	//se crea e inicializa un objeto de la interface Connection con el metodo getConnection(), que toma como argumentos la ruta a la base de datos, un usuario y una contraseña 
 			
 			System.out.println("Conexion exitosa");
-			
-			
-		
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println("No conecta");
-		}
-		
+		}	
 	}
 }

@@ -3,9 +3,8 @@ package conexionHibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
-class CreateCliente {
+public class CreateDetallesCliente {
 
 	public static void main(String[] args) {
 		
@@ -15,21 +14,21 @@ class CreateCliente {
 		
 		try{
 			//Creacion del objeto de tipo Cliente que se va a insertar en la base de datos en una nueva fila de la tabla, que pasara a ser la ultima. No se especifica id pues el gestor de base de datos lo genera automaticamente pues es autoincremental en la misma
-			Cliente cliente=new Cliente("Fredo","Bartman","San Luis 632");
+			Cliente cliente=new Cliente("Leopoldo","Bronk","San Luis 632");
 			
 			//Creacion de la instancia de la tabla relacionada de detalles de los clientes
-			Detalles_Cliente detalles_Cliente=new Detalles_Cliente("mlb.com","222-222-25412","Basaball site");
+			Detalles_Cliente detalles_Cliente=new Detalles_Cliente("mlb.com","343-763-1111","Basaball site");
 			
 			//Relacion bidirecional.
-			//Asociar los objetos utilizando el setter creado para la instancia de la clase Detalles_Cliente, dentro de la clase Cliente
-			cliente.setDetalles_Cliente(detalles_Cliente);
+			
+			//Asociar los objetos utilizando el setter creado para la instancia de la clase Cliente, dentro de la clase Detalles_Cliente
+			detalles_Cliente.setCliente(cliente);
 	
 			//Comenzar la transaccion
 			session.beginTransaction();
 			
-			//La transaccion guarda el objeto Cliente en la base de datos utilizando el mapeo ORM que se establecio en base a anotaciones en la clase Cliente, la clase de la persistencia.
-			//No necesitamos guardar tambien detalles_Cliente ya que como las tablas estan relacionadas, guardando solo cliente, ya se guarda la info de detalles_Cliente. Aplica lo mismo para el otro objeto de la clase Detalles_Cliente, al 
-			session.save(cliente);
+			//La transaccion guarda el objeto detalles_Cliente en la base de datos utilizando el mapeo ORM que se establecio en base a anotaciones en la clase detalles_Cliente, la clase de la persistencia.
+			session.save(detalles_Cliente);			//Como la relacion es bidireccional se puede salvar los detalles y salvara el cliente asociado.
 			
 			//Hacer un commit para que todo lo anterior que hemos hecho quede validado y se haga.
 			session.getTransaction().commit();
@@ -43,6 +42,10 @@ class CreateCliente {
 		{
 			//tanto si tiene exito como sino lo tiene dicha operacion, deberemos cerrar los recursos
 			sessionFactory.close();
-		}	
+		}		
+		
+		
+		
 	}
+
 }
